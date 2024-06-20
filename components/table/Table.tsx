@@ -1,6 +1,7 @@
 import type { Column } from './types'
 
 import { Table } from 'antd'
+import dayjs from 'dayjs'
 
 import iterateTree from './_util/iterateTree'
 import { formatCurrencyManual } from './_util/formatCurrencyManual '
@@ -10,7 +11,7 @@ export interface ZTableProps {
   columns?: Column[];
   data?: object[];
   keyName?: string | number;
-  size?: large | middle | small;
+  size?: 'large' | 'middle' | 'small';
 }
 
 function ZTable(props: ZTableProps) {
@@ -34,14 +35,15 @@ function ZTable(props: ZTableProps) {
           const { 
             align = 'left', 
             className, 
-            currency = false,
             ellipsis = false, 
+            format,
             html = false, 
             key, 
             prefix, 
             style, 
             suffix, 
             title, 
+            type,
             visible = true, 
             width,
             onCell,
@@ -70,8 +72,13 @@ function ZTable(props: ZTableProps) {
               let textChildren: React.ReactNode = text
 
               // Currency
-              if(currency && typeof textChildren === 'number') {
+              if(type === 'currency' && typeof textChildren === 'number') {
                 textChildren = formatCurrencyManual(textChildren)
+              }
+
+              // Date
+              if(format && type === 'date' && typeof textChildren === 'string') {
+                textChildren = dayjs(textChildren).format(format)
               }
 
               // Prefix
@@ -90,7 +97,7 @@ function ZTable(props: ZTableProps) {
               (row, rowIndex) => {
                 // onCell
                 if(onCell && Object.prototype.toString.call(onCell) === '[object Function]') {
-                  onCell(row, rowIndex)
+                  return onCell(row, rowIndex)
                 }
 
                 // Style
@@ -105,7 +112,7 @@ function ZTable(props: ZTableProps) {
               (column) => {
                 // onCell
                 if(onHeaderCell && Object.prototype.toString.call(onHeaderCell) === '[object Function]') {
-                  onHeaderCell(column)
+                  return onHeaderCell(column)
                 }
               }
             }

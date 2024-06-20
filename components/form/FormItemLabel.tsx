@@ -15,10 +15,10 @@ const ZFormItemLabel: React.FC<ZFormItemLabelProps & { required?: boolean; prefi
   colon,
   htmlFor,
   label,
-  labelAlign,
+  labelAlign = 'start',
   labelCol,
   prefixCls,
-  required,
+  required = false,
 }) => {
   if (!label) {
     return null

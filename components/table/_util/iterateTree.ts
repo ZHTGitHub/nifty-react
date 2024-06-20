@@ -3,7 +3,7 @@ const iterateTree = (treeData: any[], keyName: string) => {
     item.key = item[keyName]
     
     if(item.children) {
-      iterateTree(item.children)
+      iterateTree(item.children, keyName)
     }
   })
 

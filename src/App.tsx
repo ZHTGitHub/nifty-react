@@ -27,6 +27,8 @@ function App() {
     {
       title: '生日',
       key: 'birthday',
+      type: 'date',
+      format: 'YYYY/MM/DD'
     },
     {
       title: '年龄',
@@ -35,13 +37,14 @@ function App() {
     {
       title: '价格',
       key: 'price',
-      currency: true,
+      type: 'currency',
+      prefix: '￥'
     },
   ];
 
   return (
     <>
-      {/* <ZInput label="Name"></ZInput>
+      <ZInput label="Name"></ZInput>
 
       <ZInputNumber label="Count"></ZInputNumber>
 
@@ -55,7 +58,7 @@ function App() {
         }
       ></ZSelect>
 
-      <ZSwitch></ZSwitch> */}
+      <ZSwitch></ZSwitch>
 
       <ZTable
         bordered

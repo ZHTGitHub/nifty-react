@@ -23,6 +23,7 @@
     "preview": "vite preview"
   },
   "peerDependencies": {
+    "dayjs": "^1.11.11",
     "react": "^18.2.0"
   },
   "devDependencies": {
@@ -32,6 +33,7 @@
     "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react": "^4.2.1",
     "antd": "^5.18.2",
+    "dayjs": "^1.11.11",
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
@@ -40,6 +42,5 @@
     "rollup-plugin-copy": "^3.5.0",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
-  },
-  "dependencies": {}
+  }
 }

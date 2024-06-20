@@ -5,17 +5,15 @@ import type { TableColumnType, TableColumnGroupType, TableColumnProps } from 'an
 
 export interface Column extends TableColumnProps {
   // 列的对齐方式
-  align?: left | right | center;
+  align?: 'left' | 'right' | 'center';
   // 
   children?: Column[];
   // 列样式类名
   className?: string;
-  // 金额
-  currency?: boolean;
-  // 日期格式
-  dateFormat?: string;
   // 超出宽度自动隐藏
   ellipsis?: boolean;
+  // 格式
+  format?: string;
   // 过滤
   // filter?: {
   //   [key: string]: (() => any) | any[];
@@ -36,7 +34,7 @@ export interface Column extends TableColumnProps {
   // 列头显示文字
   title?: string;
   // 类型
-  type?: 'seq' | 'radio' | 'checkbox';
+  type?: 'checkbox' | 'currency' | 'date' | 'radio' | 'seq';
   // 隐藏列
   visible?: boolean;
   // 列宽度
