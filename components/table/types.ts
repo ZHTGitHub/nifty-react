@@ -1,9 +1,9 @@
 import type { CSSProperties } from 'react'
-import type { TableColumnType, TableColumnGroupType, TableColumnProps } from 'antd'
+import type { TableColumnType, TableColumnGroupType } from 'antd'
 
 // 日期格式、金额格式、保留小数点多少位
 
-export interface Column extends TableColumnProps {
+export interface Column {
   // 列的对齐方式
   align?: 'left' | 'right' | 'center';
   // 

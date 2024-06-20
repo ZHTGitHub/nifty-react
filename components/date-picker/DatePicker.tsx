@@ -14,6 +14,9 @@ function ZInput(props: ZDatePickerProps) {
 
     <DatePicker 
       { ...rest } 
+      style={{
+        width: '100%'
+      }}
     />
   </div>
 }

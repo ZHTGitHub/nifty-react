@@ -1,5 +1,5 @@
 import "./App.css";
-import { ZInput, ZInputNumber, ZSelect, ZSwitch, ZTable } from "../components";
+import { ZDatePicker, ZInput, ZInputNumber, ZSelect, ZSwitch, ZTable } from "../components";
 
 function App() {
   const dataSource = [
@@ -28,7 +28,7 @@ function App() {
       title: '生日',
       key: 'birthday',
       type: 'date',
-      format: 'YYYY/MM/DD'
+      format: 'YYYY/MM/DD',
     },
     {
       title: '年龄',
@@ -57,6 +57,10 @@ function App() {
           ]
         }
       ></ZSelect>
+
+      <ZDatePicker
+        label="Date"
+      ></ZDatePicker>
 
       <ZSwitch></ZSwitch>
 

@@ -10,7 +10,7 @@ export interface ZTableProps {
   bordered?: boolean;
   columns?: Column[];
   data?: object[];
-  keyName?: string | number;
+  keyName?: string;
   size?: 'large' | 'middle' | 'small';
 }
 
@@ -18,7 +18,7 @@ function ZTable(props: ZTableProps) {
   const { 
     bordered = false, 
     columns, 
-    data, 
+    data = [], 
     keyName = 'id', 
     size = 'large',
   } = props
@@ -36,7 +36,7 @@ function ZTable(props: ZTableProps) {
             align = 'left', 
             className, 
             ellipsis = false, 
-            format,
+            format = 'YYYY/MM/DD HH:mm:ss',
             html = false, 
             key, 
             prefix, 
@@ -77,7 +77,7 @@ function ZTable(props: ZTableProps) {
               }
 
               // Date
-              if(format && type === 'date' && typeof textChildren === 'string') {
+              if(type === 'date' && typeof textChildren === 'string') {
                 textChildren = dayjs(textChildren).format(format)
               }
 
