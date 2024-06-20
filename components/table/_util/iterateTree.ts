@@ -1,6 +1,6 @@
-const iterateTree = (treeData?: any[]) => {
+const iterateTree = (treeData: any[], keyName: string) => {
   treeData?.map(item => {
-    item.key = item.id
+    item.key = item[keyName]
     
     if(item.children) {
       iterateTree(item.children)
