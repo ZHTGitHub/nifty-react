@@ -12,6 +12,8 @@ export interface Column {
   className?: string;
   // 超出宽度自动隐藏
   ellipsis?: boolean;
+  // 空数据时显示的文本内容
+  empty?: string;
   // 格式
   format?: string;
   // 过滤
@@ -41,6 +43,6 @@ export interface Column {
   width?: number | string;
   // 设置单元格属性
   onCell?: (row: string, rowIndex?: number) => any;
-  // 
+  // 设置头部单元格属性
   onHeaderCell?: (column: TableColumnType<string> | TableColumnGroupType<string>) => any;
 }

@@ -1,0 +1,23 @@
+.z-paperheader {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 0 8px;
+}
+
+.title {
+  display: flex;
+  position: releative;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toolbar {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: flex-end;
+}

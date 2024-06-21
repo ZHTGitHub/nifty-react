@@ -1,12 +1,12 @@
 import "./App.css";
-import { ZDatePicker, ZInput, ZInputNumber, ZSelect, ZSwitch, ZTable } from "../components";
+import { ZButton, ZDatePicker, ZInput, ZInputNumber, ZPaper, ZSelect, ZSwitch, ZTable } from "../components";
 
 function App() {
   const dataSource = [
     {
       key: '1',
       name: '胡彦斌',
-      birthday: '1998-02-19 08:13',
+      birthday: '',
       age: 32,
       price: 1596464168,
     },
@@ -23,6 +23,10 @@ function App() {
     {
       title: '姓名',
       key: 'name',
+      ellipsis: true,
+      style: {
+        color: '#f00'
+      },
     },
     {
       title: '生日',
@@ -38,39 +42,54 @@ function App() {
       title: '价格',
       key: 'price',
       type: 'currency',
-      prefix: '￥'
+      prefix: '￥',
     },
   ];
 
   return (
-    <>
-      <ZInput label="Name"></ZInput>
+    <div className="p-4">
+      <ZPaper className="mb-5">
+        <ZInput label="Name"></ZInput>
 
-      <ZInputNumber label="Count"></ZInputNumber>
+        <ZInputNumber label="Count"></ZInputNumber>
 
-      <ZSelect 
-        label="Goods"
-        options={
-          [
-            {label: 'keyboard', value: 'keyboard'},
-            {label: 'mouse', value: 'Mouse'},
-          ]
+        <ZSelect 
+          label="Goods"
+          options={
+            [
+              {label: 'keyboard', value: 'keyboard'},
+              {label: 'mouse', value: 'Mouse'},
+            ]
+          }
+        ></ZSelect>
+
+        <ZDatePicker
+          label="Date"
+        ></ZDatePicker>
+
+        <ZSwitch></ZSwitch>
+
+        <ZButton type="primary">提交</ZButton>
+      </ZPaper>
+
+      <ZPaper
+        header={
+          <ZPaper.Header
+            title="用户列表"
+            toolbar={
+              <ZButton type="primary">新建用户</ZButton>
+            }
+          ></ZPaper.Header>
         }
-      ></ZSelect>
-
-      <ZDatePicker
-        label="Date"
-      ></ZDatePicker>
-
-      <ZSwitch></ZSwitch>
-
-      <ZTable
-        bordered
-        keyName="key"
-        columns={ columns }
-        data={ dataSource }
-      ></ZTable>
-    </>
+      >
+        <ZTable
+          bordered
+          keyName="key"
+          columns={ columns }
+          data={ dataSource }
+        ></ZTable>
+      </ZPaper>
+    </div>
   );
 }
 

@@ -2,14 +2,18 @@ import type { Column } from './types'
 
 import { Table } from 'antd'
 import dayjs from 'dayjs'
+import classNames from 'classnames'
 
 import iterateTree from './_util/iterateTree'
-import { formatCurrencyManual } from './_util/formatCurrencyManual '
+import { formatCurrencyManual } from './_util/formatCurrencyManual'
+
+import styles from './style/Table.module.css'
 
 export interface ZTableProps {
   bordered?: boolean;
   columns?: Column[];
   data?: object[];
+  emptyText?: string;
   keyName?: string;
   size?: 'large' | 'middle' | 'small';
 }
@@ -19,6 +23,7 @@ function ZTable(props: ZTableProps) {
     bordered = false, 
     columns, 
     data = [], 
+    emptyText = '-',
     keyName = 'id', 
     size = 'large',
   } = props
@@ -35,6 +40,7 @@ function ZTable(props: ZTableProps) {
           const { 
             align = 'left', 
             className, 
+            empty,
             ellipsis = false, 
             format = 'YYYY/MM/DD HH:mm:ss',
             html = false, 
@@ -65,6 +71,12 @@ function ZTable(props: ZTableProps) {
             render={ (text, record, index) => {
               console.log({ text, row: record, rowIndex: index })
 
+              // Empty
+              if(!text) {
+                return empty || emptyText
+              }
+
+              // HTML
               if(html) {
                 return <div dangerouslySetInnerHTML={{ __html: text }}></div>
               }
@@ -91,6 +103,14 @@ function ZTable(props: ZTableProps) {
                 textChildren = `${ textChildren }${ suffix }`
               }
 
+              // Style
+              if(style && style !== null && Object.prototype.toString.call(style) === '[object Object]') {
+                textChildren = <div 
+                  className={ classNames({ [styles.ellipsis]: ellipsis }) } 
+                  style={ style }
+                >{ textChildren }</div>
+              }
+
               return textChildren
             } }
             onCell={ 
@@ -98,13 +118,6 @@ function ZTable(props: ZTableProps) {
                 // onCell
                 if(onCell && Object.prototype.toString.call(onCell) === '[object Function]') {
                   return onCell(row, rowIndex)
-                }
-
-                // Style
-                if(style && style !== null && Object.prototype.toString.call(style) === '[object Object]') {
-                  return {
-                    style
-                  }
                 }
               }
             }
