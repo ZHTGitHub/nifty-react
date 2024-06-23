@@ -1,24 +1,21 @@
 import type { InputProps } from 'antd'
 
 import { Input } from 'antd'
-import ZFormItemLabel from '../form/FormItemLabel'
+import ZFormItem from '../form/FormItem'
 
 export interface ZInputProps extends InputProps {
   label?: string;
 }
 
 function ZInput(props: ZInputProps) {
-  const { label, ...rest } = props
-
   return <div>
-    <ZFormItemLabel 
-      label={ label }
-      prefixCls='z-input'
-    />
-
-    <Input 
-      { ...rest } 
-    />
+    <ZFormItem
+      { ...props }
+    >
+      <Input 
+        { ...props } 
+      />
+    </ZFormItem>
   </div>
 }
 

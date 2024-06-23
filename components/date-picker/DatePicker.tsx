@@ -1,23 +1,22 @@
 import type { DatePickerProps } from 'antd'
 
 import { DatePicker } from 'antd'
+import ZFormItem from '../form/FormItem'
 
 export interface ZDatePickerProps extends DatePickerProps {
   label?: string;
 }
 
 function ZInput(props: ZDatePickerProps) {
-  const { label, ...rest } = props
-
   return <div>
-    { label && <label>{ label }</label> }
-
-    <DatePicker 
-      { ...rest } 
-      style={{
-        width: '100%'
-      }}
-    />
+    <ZFormItem
+      { ...props }
+    >
+      <DatePicker 
+        style={{ width: '100%' }}
+        { ...props } 
+      />
+    </ZFormItem>
   </div>
 }
 

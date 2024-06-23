@@ -69,7 +69,7 @@ function ZTable(props: ZTableProps) {
             title={ title }
             width={ width }
             render={ (text, record, index) => {
-              console.log({ text, row: record, rowIndex: index })
+              // console.log({ text, row: record, rowIndex: index })
 
               // Empty
               if(!text) {

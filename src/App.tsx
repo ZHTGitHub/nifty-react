@@ -1,5 +1,18 @@
-import "./App.css";
-import { ZButton, ZDatePicker, ZInput, ZInputNumber, ZPaper, ZSelect, ZSwitch, ZTable } from "../components";
+import type { Column, ZFormSchema } from '../components'
+
+import { 
+  ZButton, 
+  ZDatePicker, 
+  ZForm,
+  ZInput, 
+  ZInputNumber, 
+  ZPaper, 
+  ZSelect, 
+  ZSwitch, 
+  ZTable 
+} from '../components'
+
+import './App.css'
 
 function App() {
   const dataSource = [
@@ -19,7 +32,7 @@ function App() {
     },
   ];
   
-  const columns = [
+  const columns: Column[] = [
     {
       title: '姓名',
       key: 'name',
@@ -46,18 +59,62 @@ function App() {
     },
   ];
 
+  const schemas: ZFormSchema[] = [
+    {
+      component: 'Input',
+      label: '姓名',
+      name: 'name',
+    },
+
+    {
+      component: 'InputNumber',
+      label: '年龄',
+      name: 'age',
+    },
+
+    {
+      component: 'Select',
+      label: '食物',
+      name: 'foods',
+      componentProps: {
+        options: [
+          {label: 'keyboard', value: 'Keyboard'},
+          {label: 'mouse', value: 'Mouse'},
+        ]
+      }
+    },
+
+    {
+      component: 'DatePicker',
+      label: '生日',
+      name: 'birthday',
+    },
+
+    {
+      component: 'Switch',
+      label: '阅读',
+      name: 'read',
+    },
+  ]
+
   return (
     <div className="p-4">
       <ZPaper className="mb-5">
-        <ZInput label="Name"></ZInput>
+        <ZInput 
+          label="Name"
+        ></ZInput>
 
-        <ZInputNumber label="Count"></ZInputNumber>
+        <ZInputNumber 
+          label="Count"
+          defaultValue={ 1 }
+        ></ZInputNumber>
 
         <ZSelect 
           label="Goods"
+          defaultValue={ 'Keyboard' }
           options={
             [
-              {label: 'keyboard', value: 'keyboard'},
+              {label: 'keyboard', value: 'Keyboard'},
               {label: 'mouse', value: 'Mouse'},
             ]
           }
@@ -67,9 +124,17 @@ function App() {
           label="Date"
         ></ZDatePicker>
 
-        <ZSwitch></ZSwitch>
+        <ZSwitch
+          defaultValue={ true }
+        ></ZSwitch>
 
         <ZButton type="primary">提交</ZButton>
+      </ZPaper>
+
+      <ZPaper className="mb-5">
+        <ZForm 
+          schemas={ schemas }
+        ></ZForm>
       </ZPaper>
 
       <ZPaper
