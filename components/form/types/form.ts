@@ -37,7 +37,7 @@ export interface ZFormActionType {
 }
 
 export interface ZFormSchema {
-  // 否显示 label 后面的冒号
+  // 是否显示 label 后面的冒号
   colon?: boolean;
   // 
   colProps?: Partial<ColProps>;
