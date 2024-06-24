@@ -1,13 +1,13 @@
-import type { ZFormSchema } from "../types/form";
-import type { ZFormProps } from "../Form";
-import type { Recordable } from "../types/form";
+import type { ZFormSchema } from '../types/form'
+import type { ZFormProps } from '../Form'
+import type { Recordable } from '../types/form'
 
-import * as React from "react";
-import { Col } from "antd";
-import { createPlaceholderMessage } from "../helper";
+import * as React from 'react'
+import { Col } from 'antd'
+import { createPlaceholderMessage } from '../helper'
 
-import { isBoolean, isFunction } from "../../_util/is";
-import { componentMap } from "../componentMap";
+import { isBoolean, isFunction } from '../../_util/is'
+import { componentMap } from '../componentMap'
 
 interface ZFormItemProps {
   defaultValues: Recordable<any>;
@@ -22,15 +22,15 @@ const defaultProps = {
 };
 
 function ZFormItem(props: ZFormItemProps) {
-  props = Object.assign(defaultProps, props);
-  const { formProps, schema } = props;
+  props = Object.assign(defaultProps, props)
+  const { formProps, schema } = props
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event);
+    console.log(event)
   };
 
   const getValues = () => {
-    const { defaultValues, schema } = props;
+    const { defaultValues, schema } = props
 
     return {
       name: schema.name,
@@ -38,43 +38,43 @@ function ZFormItem(props: ZFormItemProps) {
         ...defaultValues,
       },
       schema,
-    };
-  };
+    }
+  }
 
   const getComponentProps = () => {
-    const { schema } = props;
-    let { componentProps = {} } = schema;
+    const { schema } = props
+    let { componentProps = {} } = schema
 
     if (isFunction(componentProps)) {
-      componentProps = componentProps({ schema }) ?? {};
+      componentProps = componentProps({ schema }) ?? {}
     }
 
-    return componentProps as Recordable;
+    return componentProps as Recordable
   };
 
   const getDisable = () => {
-    const { disabled: globDisabled } = props.formProps;
-    const { dynamicDisabled } = props.schema;
-    const { disabled: itemDisabled = false } = getComponentProps();
-    let disabled = !!globDisabled || itemDisabled;
+    const { disabled: globDisabled } = props.formProps
+    const { dynamicDisabled } = props.schema
+    const { disabled: itemDisabled = false } = getComponentProps()
+    let disabled = !!globDisabled || itemDisabled
 
     if (isBoolean(dynamicDisabled)) {
-      disabled = dynamicDisabled;
+      disabled = dynamicDisabled
     }
 
     if (isFunction(dynamicDisabled)) {
-      disabled = dynamicDisabled(getValues());
+      disabled = dynamicDisabled(getValues())
     }
 
-    return disabled;
-  };
+    return disabled
+  }
 
   function renderComponent() {
     const { component } = schema;
 
     const Comp = componentMap.get(component) as React.ElementType;
 
-    const { autoSetPlaceHolder, size } = props.formProps;
+    const { autoSetPlaceHolder, size } = props.formProps
 
     const propsData: Recordable<any> = {
       // allowClear: true,
@@ -83,13 +83,13 @@ function ZFormItem(props: ZFormItemProps) {
       disabled: getDisable(),
     };
 
-    const isCreatePlaceholder = !propsData.disabled && autoSetPlaceHolder;
+    const isCreatePlaceholder = !propsData.disabled && autoSetPlaceHolder
     // RangePicker place is an array
     if (isCreatePlaceholder && component !== "RangePicker" && component) {
       propsData.placeholder =
-        getComponentProps()?.placeholder || createPlaceholderMessage(component);
+        getComponentProps()?.placeholder || createPlaceholderMessage(component)
     }
-    // propsData.formValues = getValues();
+    // propsData.formValues = getValues()
 
     const compAttr = {
       label: schema.label,
@@ -100,17 +100,21 @@ function ZFormItem(props: ZFormItemProps) {
     };
 
     return <Comp 
-      {...compAttr} 
+      { ...compAttr } 
       onChange={ handleChange }
-    ></Comp>;
+    ></Comp>
   }
 
   const { colProps = {} } = schema;
   const { wrapperCol = {} } = formProps;
 
-  const realColProps = { ...wrapperCol, ...colProps };
+  const realColProps = { ...wrapperCol, ...colProps }
 
-  return <Col {...realColProps}>{renderComponent()}</Col>;
+  return <Col 
+    { ...realColProps }
+  >
+    { renderComponent() }
+  </Col>
 }
 
 export default ZFormItem;

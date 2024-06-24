@@ -35,13 +35,13 @@ export interface ZFormProps {
 }
 
 function ZForm(props: ZFormProps) {
-  const contextDisabled = React.useContext(DisabledContext);
+  const contextDisabled = React.useContext(DisabledContext)
 
   const {
     colon,
     defaultValues,
     disabled = contextDisabled,
-    layout = "horizontal",
+    layout = 'horizontal',
     labelAlign,
     labelCol,
     labelWrap,
@@ -62,10 +62,18 @@ function ZForm(props: ZFormProps) {
       wrapperCol,
       vertical: layout === "vertical",
     }),
-    [labelAlign, labelCol, labelWrap, name, schemas, wrapperCol, layout],
-  );
+    [
+      labelAlign, 
+      labelCol, 
+      labelWrap, 
+      name, 
+      schemas, 
+      wrapperCol, 
+      layout
+    ],
+  )
 
-  console.log(schemas);
+  console.log(schemas)
 
   return (
     <div>
