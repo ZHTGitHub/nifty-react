@@ -99,7 +99,7 @@ function App() {
 
   return (
     <div className="p-4">
-      <ZPaper className="mb-5">
+      {/* <ZPaper className="mb-5">
         <ZInput 
           label="Name"
         ></ZInput>
@@ -129,7 +129,7 @@ function App() {
         ></ZSwitch>
 
         <ZButton type="primary">提交</ZButton>
-      </ZPaper>
+      </ZPaper> */}
 
       <ZPaper className="mb-5">
         <ZForm 

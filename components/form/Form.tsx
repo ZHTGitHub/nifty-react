@@ -3,6 +3,7 @@ import type { SizeType } from "../config-provider/SizeContext";
 import type { ZFormSchema } from "./types/form";
 import type { FormLabelAlign } from "./interface";
 import type { FormContextProps } from "./context";
+import type { Recordable } from './types/form'
 
 import * as React from "react";
 import { useMemo } from "react";
@@ -21,6 +22,7 @@ export interface ZFormProps {
   // 是否设置默认占位符
   autoSetPlaceHolder?: boolean;
   colon?: boolean;
+  defaultValues?: Recordable<any>;
   disabled?: boolean;
   layout?: FormLayout;
   labelAlign?: FormLabelAlign;
@@ -37,6 +39,7 @@ function ZForm(props: ZFormProps) {
 
   const {
     colon,
+    defaultValues,
     disabled = contextDisabled,
     layout = "horizontal",
     labelAlign,
@@ -72,6 +75,7 @@ function ZForm(props: ZFormProps) {
             {schemas?.map((schema: ZFormSchema) => (
               <ZFormItem
                 key={schema.name}
+                defaultValues={ defaultValues }
                 formProps={props}
                 schema={schema}
               ></ZFormItem>
