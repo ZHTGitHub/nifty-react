@@ -3,39 +3,52 @@ import type { ZFormProps } from '../Form'
 import type { Recordable } from '../types/form'
 
 import * as React from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { Col } from 'antd'
 import { createPlaceholderMessage } from '../helper'
+
+import { FormContext } from '../context'
 
 import { isBoolean, isFunction } from '../../_util/is'
 import { componentMap } from '../componentMap'
 
 interface ZFormItemProps {
-  defaultValues: Recordable<any>;
+  initialValues: Recordable<any>;
   formProps: ZFormProps;
   schema: ZFormSchema;
 }
 
 const defaultProps = {
-  defaultValues: {},
+  initialValues: {},
   formProps: {},
   schema: {},
-};
+}
 
 function ZFormItem(props: ZFormItemProps) {
   props = Object.assign(defaultProps, props)
   const { formProps, schema } = props
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event)
-  };
+  const { values, onValueChange, onValuesChange } = useContext(FormContext)
+
+  const [value, setValue] = useState<string | number | boolean>()
+
+  useEffect(() => {
+    if(value !== values?.[schema.name]) {
+      setValue(values?.[schema.name])
+      console.log(values)
+    }
+}, [
+  values, 
+  values?.[schema.name]
+])
 
   const getValues = () => {
-    const { defaultValues, schema } = props
+    const { initialValues, schema } = props
 
     return {
       name: schema.name,
       values: {
-        ...defaultValues,
+        ...initialValues,
       },
       schema,
     }
@@ -101,7 +114,13 @@ function ZFormItem(props: ZFormItemProps) {
 
     return <Comp 
       { ...compAttr } 
-      onChange={ handleChange }
+      onChange={ 
+        (event: React.ChangeEvent<HTMLInputElement> | string | number | boolean) => {
+          const value = event?.target?.value || event
+          setValue(value)
+          onValueChange?.(schema.name, value)
+        }
+      }
     ></Comp>
   }
 

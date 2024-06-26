@@ -6,7 +6,7 @@ import type { FormContextProps } from "./context";
 import type { Recordable } from './types/form'
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useState, useMemo } from "react";
 import DisabledContext, {
   DisabledContextProvider,
 } from "../config-provider/DisabledContext";
@@ -18,11 +18,10 @@ import { FormContext } from "./context";
 
 export type FormLayout = "horizontal" | "inline" | "vertical";
 
-export interface ZFormProps {
-  // 是否设置默认占位符
+export interface ZFormProps extends React.HTMLAttributes<HTMLFormElement>{
   autoSetPlaceHolder?: boolean;
   colon?: boolean;
-  defaultValues?: Recordable<any>;
+  initialValues?: Recordable<any>;
   disabled?: boolean;
   layout?: FormLayout;
   labelAlign?: FormLabelAlign;
@@ -31,7 +30,13 @@ export interface ZFormProps {
   name?: string;
   schemas?: ZFormSchema[];
   size?: SizeType;
+  vertical: boolean;
   wrapperCol?: ColProps;
+
+  onValueChange?: (key: string, value: any) => void;
+  onValuesChange?: (changedValues: Recordable, allValues: Recordable) => void;
+  setValues?: (values: Record<string, any>) => void;
+  values?: Record<string, any>;
 }
 
 function ZForm(props: ZFormProps) {
@@ -39,53 +44,70 @@ function ZForm(props: ZFormProps) {
 
   const {
     colon,
-    defaultValues,
+    initialValues = {},
     disabled = contextDisabled,
     layout = 'horizontal',
-    labelAlign,
+    labelAlign = 'right',
     labelCol,
     labelWrap,
     name,
     schemas,
     size,
+    vertical = false,
     wrapperCol,
-    // ...restFormProps,
-  } = props;
+    
+    onValueChange,
+    onValuesChange,
+  } = props
 
-  const formContextValue = useMemo<FormContextProps>(
-    () => ({
-      labelAlign,
-      labelCol,
-      labelWrap,
-      name,
-      schemas,
-      wrapperCol,
-      vertical: layout === "vertical",
-    }),
-    [
-      labelAlign, 
-      labelCol, 
-      labelWrap, 
-      name, 
-      schemas, 
-      wrapperCol, 
-      layout
-    ],
-  )
+  console.log(props)
 
-  console.log(schemas)
+  const [values, setValues] = useState<Record<string, any>>(initialValues || {})
+
+  const handleValueChange = (key: string, value: any) => {
+    values[key] = value
+
+    onValueChange?.(key, value)
+    onValuesChange?.({ key: value }, values)
+  }
+
+  // const formContextValue = useMemo<ZFormProps>(
+  //   () => ({
+  //     labelAlign,
+  //     labelCol,
+  //     labelWrap,
+  //     name,
+  //     schemas,
+  //     wrapperCol,
+  //     vertical: layout === "vertical",
+  //   }),
+  //   [
+  //     labelAlign, 
+  //     labelCol, 
+  //     labelWrap, 
+  //     name, 
+  //     schemas, 
+  //     wrapperCol, 
+  //     layout
+  //   ],
+  // )
 
   return (
     <div>
-      <FormContext.Provider value={formContextValue}>
-        <DisabledContextProvider disabled={disabled}>
+      <FormContext.Provider value={{
+        values,
+        setValues: (v) => setValues(v),
+        onValueChange: handleValueChange,
+        onValuesChange,
+      }}>
+        <DisabledContextProvider disabled={ disabled }>
           <SizeContext.Provider value={size}>
             {schemas?.map((schema: ZFormSchema) => (
               <ZFormItem
-                key={schema.name}
-                defaultValues={ defaultValues }
-                formProps={props}
-                schema={schema}
+                key={ schema.name }
+                initialValues={ initialValues }
+                formProps={ props }
+                schema={ schema }
               ></ZFormItem>
             ))}
           </SizeContext.Provider>

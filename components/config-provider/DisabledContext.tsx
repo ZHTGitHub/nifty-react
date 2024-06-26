@@ -2,12 +2,12 @@ import * as React from 'react'
 
 export type DisabledType = boolean | undefined
 
-const DisabledContext = React.createContext<DisabledType>(false)
-
 export interface DisabledContextProps {
   children?: React.ReactNode;
   disabled?: DisabledType;
 }
+
+const DisabledContext = React.createContext<DisabledType>(false)
 
 export const DisabledContextProvider: React.FC<DisabledContextProps> = ({ children, disabled }) => {
   const originDisabled = React.useContext(DisabledContext)

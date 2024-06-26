@@ -97,6 +97,14 @@ function App() {
     },
   ]
 
+  const onValueChange = (key, value) => {
+    console.log({key, value})
+  }
+
+  const onValuesChange = (changedValues, allValues) => {
+    console.log({changedValues, allValues})
+  }
+
   return (
     <div className="p-4">
       {/* <ZPaper className="mb-5">
@@ -134,6 +142,8 @@ function App() {
       <ZPaper className="mb-5">
         <ZForm 
           schemas={ schemas }
+          onValueChange={ onValueChange }
+          onValuesChange={ onValuesChange }
         ></ZForm>
       </ZPaper>
 
