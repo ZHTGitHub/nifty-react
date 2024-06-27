@@ -21,8 +21,8 @@ export type FormLayout = "horizontal" | "inline" | "vertical";
 export interface ZFormProps extends React.HTMLAttributes<HTMLFormElement>{
   autoSetPlaceHolder?: boolean;
   colon?: boolean;
-  initialValues?: Recordable<any>;
   disabled?: boolean;
+  initialValues?: Recordable<any>;
   layout?: FormLayout;
   labelAlign?: FormLabelAlign;
   labelCol?: ColProps;
@@ -62,7 +62,7 @@ function ZForm(props: ZFormProps) {
 
   console.log(props)
 
-  const [values, setValues] = useState<Record<string, any>>(initialValues || {})
+  const [values, setValues] = useState<Record<string, any>>(initialValues)
 
   const handleValueChange = (key: string, value: any) => {
     values[key] = value
