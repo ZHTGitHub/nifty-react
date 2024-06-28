@@ -28,20 +28,6 @@ function ZFormItem(props: ZFormItemProps) {
   props = Object.assign(defaultProps, props)
   const { formProps, schema } = props
 
-  // const { values, onValueChange, onValuesChange } = useContext(FormContext)
-
-  // const [value, setValue] = useState<string | number | boolean>()
-
-//   useEffect(() => {
-//     if(value !== values?.[schema.name]) {
-//       setValue(values?.[schema.name])
-//       console.log(values)
-//     }
-// }, [
-//   values, 
-//   values?.[schema.name]
-// ])
-
   const getValues = () => {
     const { initialValues, schema } = props
 
@@ -105,6 +91,7 @@ function ZFormItem(props: ZFormItemProps) {
     // propsData.formValues = getValues()
 
     const compAttr = {
+      component: schema.component,
       label: schema.label,
       name: schema.name,
       defaultValue: schema.defaultValue,
@@ -115,13 +102,6 @@ function ZFormItem(props: ZFormItemProps) {
 
     return <Comp 
       { ...compAttr } 
-      // onChange={ 
-      //   (event: React.ChangeEvent<HTMLInputElement> | string | number | boolean) => {
-      //     const value = event?.target?.value || event
-      //     setValue(value)
-      //     onValueChange?.(schema.name, value)
-      //   }
-      // }
     ></Comp>
   }
 

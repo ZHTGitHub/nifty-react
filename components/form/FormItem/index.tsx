@@ -1,5 +1,6 @@
 import type { FormItemInputProps } from '../FormItemInput'
 import type { ZFormItemLabelProps } from '../FormItemLabel'
+import type { ComponentType } from '../types'
 
 import * as React from 'react'
 import { useContext, useState, useEffect } from 'react'
@@ -10,6 +11,14 @@ import ItemHolder from './ItemHolder'
 
 type StoreValue = any
 type RuleType = 'string' | 'number' | 'boolean' | 'method' | 'regexp' | 'integer' | 'float' | 'object' | 'enum' | 'date' | 'url' | 'hex' | 'email'
+
+const getValueFromEvent = (event: React.ChangeEvent<HTMLInputElement> | string | number | boolean, component?: ComponentType) => {
+  if(component === 'Input') {
+    return (event as React.ChangeEvent<HTMLInputElement>).target.value
+  }
+
+  return event
+}
 
 export interface Rule {
   warningOnly?: boolean;
@@ -29,6 +38,7 @@ export interface Rule {
 
 export interface FormItemProps<Values = any> extends ZFormItemLabelProps, FormItemInputProps {
   children?: React.ReactNode;
+  component?: ComponentType;
   name?: string;
   prefixCls?: string;
   required?: boolean;
@@ -38,6 +48,7 @@ export interface FormItemProps<Values = any> extends ZFormItemLabelProps, FormIt
 function InternalFormItem<Values = any>(props: FormItemProps<Values>): React.ReactElement {
   const {
     children,
+    component,
     name,
     prefixCls,
     required,
@@ -48,9 +59,9 @@ function InternalFormItem<Values = any>(props: FormItemProps<Values>): React.Rea
   const [value, setValue] = useState<string | number | boolean>()
 
   useEffect(() => {
-      if(value !== values?.[name]) {
-        setValue(values?.[name])
-      }
+    if(value !== values?.[name]) {
+      setValue(values?.[name])
+    }
   }, [
     values, 
     values?.[name]
@@ -70,13 +81,12 @@ function InternalFormItem<Values = any>(props: FormItemProps<Values>): React.Rea
           })
         )
 
-  console.log(name, values)
-
   const childEle = React.Children.toArray(children).length > 1 ? children : React.cloneElement(children, {
     value: values?.[name],
     onChange: (event: React.ChangeEvent<HTMLInputElement> | string | number | boolean) => { 
-      const value = event?.target?.value || event
-      setValue(value)
+      console.log(event)
+      const value = getValueFromEvent(event, component)
+      setValue(value)  
       onValueChange?.(name, value)
     }
   })
