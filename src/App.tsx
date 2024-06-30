@@ -110,16 +110,6 @@ function App() {
     console.log({changedValues, allValues})
   }
 
-  const getValues = () => {
-    console.log(form.current?.getFieldsValue())
-  }
-
-  const setValues = () => {
-    form.current?.setFieldsValue({
-      name: 'Leslie'
-    })
-  }
-
   return (
     <div className="p-4">
       <ZPaper className="mb-5">
@@ -163,8 +153,31 @@ function App() {
           onValuesChange={ onValuesChange }
         ></ZForm>
 
-        <ZButton type="primary" onClick={ getValues }>打印表单值</ZButton>
-        <ZButton type="primary" onClick={ setValues }>设置表单值</ZButton>
+        <ZButton type="primary" onClick={ 
+          () => {
+            console.log(form.current?.getFieldsValue())
+          } 
+        }>打印表单值</ZButton>
+
+        <ZButton type="primary" onClick={ 
+          () => {
+            form.current?.setFieldsValue({
+              name: 'Leslie'
+            })
+          } 
+        }>设置表单值</ZButton>
+
+        <ZButton type="primary" onClick={ 
+          () => {
+            form.current?.resetFieldsValue()
+          } 
+        }>重置表单值</ZButton>
+
+        <ZButton type="primary" onClick={ 
+          () => {
+            form.current?.clearFieldsValue()
+          } 
+        }>清空表单值</ZButton>
       </ZPaper>
 
       <ZPaper

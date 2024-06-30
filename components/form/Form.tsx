@@ -39,6 +39,8 @@ export interface ZFormProps extends React.HTMLAttributes<HTMLFormElement>{
 export interface ZFormRef {
   getFieldsValue: () => Recordable;
   setFieldsValue: (values: Recordable) => void;
+  resetFieldsValue: () => void;
+  clearFieldsValue: () => void;
 }
 
 function ZForm(props: ZFormProps, ref: Ref<unknown> | undefined) {
@@ -62,7 +64,7 @@ function ZForm(props: ZFormProps, ref: Ref<unknown> | undefined) {
 
   console.log(props)
 
-  const [values, setValues] = useState<Record<string, any>>(initialValues)
+  const [values, setValues] = useState<Recordable>(initialValues)
 
   const handleValueChange = (key: string, value: any) => {
     values[key] = value
@@ -79,6 +81,14 @@ function ZForm(props: ZFormProps, ref: Ref<unknown> | undefined) {
 
       setFieldsValue(fieldValues: Recordable) {
         setValues({ ...values, ...fieldValues })
+      },
+
+      resetFieldsValue() {
+        setValues({ ...initialValues })
+      },
+
+      clearFieldsValue() {
+        setValues({})
       }
     }
   })

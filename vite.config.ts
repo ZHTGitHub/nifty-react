@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+
   build: {
     lib: {
       entry: './components',
@@ -11,14 +12,17 @@ export default defineConfig({
     },
 
     rollupOptions: {
-      external: ['react', 'react-dom'],
+      external: ['react'],
       output: {
         globals: {
           react: 'React',
         }
       }
-    }
+    },
+
+    outDir: './dist'
   },
+
   server: {
     port: 1688,
   }

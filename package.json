@@ -22,6 +22,18 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+  "main": "./dist/nifty-react.umd.cjs",
+  "module": "./dist/nifty-react.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/nifty-react.js",
+      "require": "./dist/nifty-react.umd.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "antd": "^5.18.3",
     "classnames": "^2.5.1",
