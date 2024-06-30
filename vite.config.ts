@@ -8,11 +8,15 @@ export default defineConfig({
     lib: {
       entry: './components',
       name: 'nifty-react',
-      formats: [],
     },
 
     rollupOptions: {
-
+      external: ['react', 'react-dom'],
+      output: {
+        globals: {
+          react: 'React',
+        }
+      }
     }
   },
   server: {

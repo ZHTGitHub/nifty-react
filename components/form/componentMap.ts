@@ -1,4 +1,3 @@
-import type { Component } from 'react'
 import type { ComponentType } from './types/index'
 
 import ZDatePicker from '../date-picker'

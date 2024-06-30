@@ -6,7 +6,7 @@ import FormItemInput from '../FormItemInput'
 import * as React from 'react'
 
 export interface ItemHolderProps extends FormItemProps {
-  children?: React.ReactNode;
+  children?: React.ReactElement;
   fieldId?: string;
   isRequired?: boolean;
   prefixCls: string;

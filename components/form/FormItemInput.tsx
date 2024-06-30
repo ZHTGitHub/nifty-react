@@ -25,9 +25,9 @@ export interface FormItemInputProps {
 const FormItemInput: React.FC<FormItemInputProps & FormItemInputMiscProps> = (props) => {
   const {
     children,
-    extra,
-    fieldId,
-    help,
+    // extra,
+    // fieldId,
+    // help,
     prefixCls,
     wrapperCol,
   } = props
@@ -36,18 +36,18 @@ const FormItemInput: React.FC<FormItemInputProps & FormItemInputMiscProps> = (pr
 
   const formContext = React.useContext(FormContext)
 
-  const mergedWrapperCol: ColProps = wrapperCol || formContext.wrapperCol || {}
+  // const mergedWrapperCol: ColProps = wrapperCol || formContext.wrapperCol || {}
 
-  const className = classNames(`${baseClassName}-control`, mergedWrapperCol.className)
+  const className = classNames(`${baseClassName}-control`)
 
   // Pass to sub FormItem should not with col info
   const subFormContext = React.useMemo(() => ({ ...formContext }), [formContext])
-  delete subFormContext.labelCol
-  delete subFormContext.wrapperCol
+  // delete subFormContext.labelCol
+  // delete subFormContext.wrapperCol
 
   return (
     <FormContext.Provider value={ subFormContext }>
-      <Col { ...mergedWrapperCol } className={ className }>
+      <Col { ...wrapperCol } className={ className }>
         { children }
       </Col>
     </FormContext.Provider>

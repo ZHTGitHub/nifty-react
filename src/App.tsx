@@ -1,4 +1,7 @@
+import type { ZFormRef } from '../components/form/Form'
 import type { Column, ZFormSchema } from '../components'
+
+import { useRef } from 'react'
 
 import { 
   ZButton, 
@@ -15,6 +18,8 @@ import {
 import './App.css'
 
 function App() {
+  const form = useRef<ZFormRef>(null)
+
   const dataSource = [
     {
       key: '1',
@@ -97,17 +102,27 @@ function App() {
     },
   ]
 
-  const onValueChange = (key, value) => {
+  const onValueChange = (key: any, value: any) => {
     console.log({key, value})
   }
 
-  const onValuesChange = (changedValues, allValues) => {
+  const onValuesChange = (changedValues: any, allValues: any) => {
     console.log({changedValues, allValues})
+  }
+
+  const getValues = () => {
+    console.log(form.current?.getFieldsValue())
+  }
+
+  const setValues = () => {
+    form.current?.setFieldsValue({
+      name: 'Leslie'
+    })
   }
 
   return (
     <div className="p-4">
-      {/* <ZPaper className="mb-5">
+      <ZPaper className="mb-5">
         <ZInput 
           label="Name"
         ></ZInput>
@@ -137,15 +152,19 @@ function App() {
         ></ZSwitch>
 
         <ZButton type="primary">提交</ZButton>
-      </ZPaper> */}
+      </ZPaper>
 
       <ZPaper className="mb-5">
         <ZForm 
+          ref={ form }
           initialValues={{ name: 'zht', age: 19 }}
           schemas={ schemas }
           onValueChange={ onValueChange }
           onValuesChange={ onValuesChange }
         ></ZForm>
+
+        <ZButton type="primary" onClick={ getValues }>打印表单值</ZButton>
+        <ZButton type="primary" onClick={ setValues }>设置表单值</ZButton>
       </ZPaper>
 
       <ZPaper

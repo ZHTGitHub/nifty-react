@@ -12,12 +12,12 @@ import ItemHolder from './ItemHolder'
 type StoreValue = any
 type RuleType = 'string' | 'number' | 'boolean' | 'method' | 'regexp' | 'integer' | 'float' | 'object' | 'enum' | 'date' | 'url' | 'hex' | 'email'
 
-const getValueFromEvent = (event: React.ChangeEvent<HTMLInputElement> | string | number | boolean, component?: ComponentType) => {
+const getValueFromEvent = (event: React.ChangeEvent<HTMLInputElement> | string | number | boolean, component?: ComponentType): string | number | boolean => {
   if(component === 'Input') {
     return (event as React.ChangeEvent<HTMLInputElement>).target.value
   }
 
-  return event
+  return event as string | number | boolean
 }
 
 export interface Rule {
@@ -37,7 +37,7 @@ export interface Rule {
 } 
 
 export interface FormItemProps<Values = any> extends ZFormItemLabelProps, FormItemInputProps {
-  children?: React.ReactNode;
+  children?: React.ReactElement;
   component?: ComponentType;
   name?: string;
   prefixCls?: string;
@@ -54,6 +54,10 @@ function InternalFormItem<Values = any>(props: FormItemProps<Values>): React.Rea
     required,
     rules,
   } = props
+
+  if(!name) {
+    return children!
+  }
 
   const { values, onValueChange } = useContext(FormContext)
   const [value, setValue] = useState<string | number | boolean>()
@@ -81,7 +85,7 @@ function InternalFormItem<Values = any>(props: FormItemProps<Values>): React.Rea
           })
         )
 
-  const childEle = React.Children.toArray(children).length > 1 ? children : React.cloneElement(children, {
+  const childEle = React.Children.toArray(children).length > 1 ? children : React.cloneElement(children!, {
     value: values?.[name],
     onChange: (event: React.ChangeEvent<HTMLInputElement> | string | number | boolean) => { 
       console.log(event)
@@ -95,7 +99,7 @@ function InternalFormItem<Values = any>(props: FormItemProps<Values>): React.Rea
   return (
     <ItemHolder
       { ...props }
-      prefixCls={ prefixCls }
+      prefixCls={ prefixCls! }
       isRequired={ isRequired }
     >
       { childEle }
