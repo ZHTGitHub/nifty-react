@@ -7,6 +7,7 @@ export type { ZDatePickerProps } from './date-picker'
 export { default as ZForm } from './form'
 export type { 
   ZFormProps,
+  ZFormRef,
   ZFormSchema,
 } from './form'
 export { default as ZInput } from './input'

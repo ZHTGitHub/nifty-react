@@ -13,11 +13,14 @@ type StoreValue = any
 type RuleType = 'string' | 'number' | 'boolean' | 'method' | 'regexp' | 'integer' | 'float' | 'object' | 'enum' | 'date' | 'url' | 'hex' | 'email'
 
 const getValueFromEvent = (event: React.ChangeEvent<HTMLInputElement> | string | number | boolean, component?: ComponentType): string | number | boolean => {
-  if(component === 'Input') {
-    return (event as React.ChangeEvent<HTMLInputElement>).target.value
+  switch (component) {
+    case 'Input':
+    case 'RadioButtonGroup':
+      return (event as React.ChangeEvent<HTMLInputElement>).target.value
+  
+    default:
+      return event as string | number | boolean
   }
-
-  return event as string | number | boolean
 }
 
 export interface Rule {
@@ -88,7 +91,6 @@ function InternalFormItem<Values = any>(props: FormItemProps<Values>): React.Rea
   const childEle = React.Children.toArray(children).length > 1 ? children : React.cloneElement(children!, {
     value: values?.[name],
     onChange: (event: React.ChangeEvent<HTMLInputElement> | string | number | boolean) => { 
-      console.log(event)
       const value = getValueFromEvent(event, component)
       setValue(value)  
       onValueChange?.(name, value)

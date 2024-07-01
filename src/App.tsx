@@ -62,6 +62,14 @@ function App() {
       type: 'currency',
       prefix: '￥',
     },
+
+    {
+      title: '操作',
+      key: 'action',
+      render: () => {
+        return '1'
+      }
+    }
   ];
 
   const schemas: ZFormSchema[] = [
@@ -99,6 +107,18 @@ function App() {
       component: 'Switch',
       label: '阅读',
       name: 'read',
+    },
+
+    {
+      component: 'RadioButtonGroup',
+      label: '同意',
+      name: 'agree',
+      componentProps: {
+        options: [
+          {label: '是', value: 'Y'},
+          {label: '否', value: 'N'},
+        ]
+      }
     },
   ]
 

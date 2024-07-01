@@ -6,7 +6,7 @@ export interface ZRadioProps extends RadioProps {
   label?: string;
 }
 
-function ZInput(props: ZRadioProps) {
+function ZRadio(props: ZRadioProps) {
   const { label, ...rest } = props
 
   return <div>
@@ -18,4 +18,4 @@ function ZInput(props: ZRadioProps) {
   </div>
 }
 
-export default ZInput
+export default ZRadio

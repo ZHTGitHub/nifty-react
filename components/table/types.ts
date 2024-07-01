@@ -29,6 +29,8 @@ export interface Column {
   origin?: boolean;
   // 前缀
   prefix?: string;
+  // 
+  render?: (text: any1, record: any, index: number) => any,
   // 样式
   style?: CSSProperties;
   // 后缀
