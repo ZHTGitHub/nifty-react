@@ -80,7 +80,7 @@ function ZForm(props: ZFormProps, ref: Ref<unknown> | undefined) {
       },
 
       setFieldsValue(fieldValues: Recordable) {
-        setValues({ ...values, ...fieldValues })
+        setValues({ ...fieldValues })
       },
 
       resetFieldsValue() {

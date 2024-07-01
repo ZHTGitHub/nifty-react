@@ -30,7 +30,7 @@ export interface Column {
   // 前缀
   prefix?: string;
   // 
-  render?: (text: any1, record: any, index: number) => any,
+  render?: (text: any, record: any, index: number) => any,
   // 样式
   style?: CSSProperties;
   // 后缀
