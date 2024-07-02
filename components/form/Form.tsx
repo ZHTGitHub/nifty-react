@@ -64,8 +64,8 @@ function ZForm(props: ZFormProps, ref: Ref<unknown> | undefined) {
     onValuesChange,
   } = props
 
-  console.log(props)
-
+  const names = schemas?.map(schema => schema.name)
+  
   const [values, setValues] = useState<Recordable>(deepClone(initialValues))
 
   const handleValueChange = (key: string, value: any) => {
@@ -82,7 +82,15 @@ function ZForm(props: ZFormProps, ref: Ref<unknown> | undefined) {
       },
 
       setFieldsValue(fieldValues: Recordable) {
-        setValues(deepClone(fieldValues))
+        const realFieldValues: Recordable = {}
+
+        for(let key in fieldValues) {
+          if(names?.includes(key)) {
+            realFieldValues[key] = fieldValues[key]
+          }
+        }
+
+        setValues(deepClone(realFieldValues))
       },
 
       resetFieldsValue() {
