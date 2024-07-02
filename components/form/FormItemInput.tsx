@@ -4,7 +4,7 @@ import * as React from 'react'
 import { Col } from 'antd'
 import classNames from 'classnames'
 
-import { FormContext } from './context'
+import { FormContext } from './FormContext'
 
 interface FormItemInputMiscProps {
   children: React.ReactNode;

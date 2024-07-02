@@ -5,7 +5,7 @@ import type { ComponentType } from '../types'
 import * as React from 'react'
 import { useContext, useState, useEffect } from 'react'
 
-import { FormContext } from '../context'
+import { FormContext } from '../FormContext'
 
 import ItemHolder from './ItemHolder'
 

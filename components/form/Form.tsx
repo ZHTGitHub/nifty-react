@@ -13,7 +13,7 @@ import deepClone from '../_util/ deepClone'
 
 import ZFormItem from './components/FormItem'
 
-import { FormContext } from './context'
+import { FormContext } from './FormContext'
 
 export type FormLayout = 'horizontal' | 'inline' | 'vertical'
 
@@ -81,11 +81,11 @@ function ZForm(props: ZFormProps, ref: Ref<unknown> | undefined) {
       },
 
       setFieldsValue(fieldValues: Recordable) {
-        setValues({ ...deepClone(fieldValues) })
+        setValues(deepClone(fieldValues))
       },
 
       resetFieldsValue() {
-        setValues({ ...deepClone(initialValues) })
+        setValues(deepClone(initialValues))
       },
 
       clearFieldsValue() {
