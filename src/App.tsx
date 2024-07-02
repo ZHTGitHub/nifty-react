@@ -182,7 +182,8 @@ function App() {
         <ZButton type="primary" onClick={ 
           () => {
             form.current?.setFieldsValue({
-              name: 'Leslie'
+              name: 'Leslie',
+              age: 18,
             })
           } 
         }>设置表单值</ZButton>

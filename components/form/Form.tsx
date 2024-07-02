@@ -9,6 +9,7 @@ import * as React from 'react'
 import { forwardRef, useImperativeHandle, useState } from 'react'
 import DisabledContext, { DisabledContextProvider } from '../config-provider/DisabledContext'
 import SizeContext from '../config-provider/SizeContext'
+import deepClone from '../_util/ deepClone'
 
 import ZFormItem from './components/FormItem'
 
@@ -64,7 +65,7 @@ function ZForm(props: ZFormProps, ref: Ref<unknown> | undefined) {
 
   console.log(props)
 
-  const [values, setValues] = useState<Recordable>(initialValues)
+  const [values, setValues] = useState<Recordable>(deepClone(initialValues))
 
   const handleValueChange = (key: string, value: any) => {
     values[key] = value
@@ -76,15 +77,15 @@ function ZForm(props: ZFormProps, ref: Ref<unknown> | undefined) {
   useImperativeHandle(ref, () => {
     return {
       getFieldsValue() {
-        return values
+        return deepClone(values)
       },
 
       setFieldsValue(fieldValues: Recordable) {
-        setValues({ ...fieldValues })
+        setValues({ ...deepClone(fieldValues) })
       },
 
       resetFieldsValue() {
-        setValues({ ...initialValues })
+        setValues({ ...deepClone(initialValues) })
       },
 
       clearFieldsValue() {
@@ -107,11 +108,11 @@ function ZForm(props: ZFormProps, ref: Ref<unknown> | undefined) {
               schemas?.map((schema: ZFormSchema) => (
                 <ZFormItem
                   key={ schema.name }
-                  initialValues={ initialValues }
+                  initialValues={ deepClone(initialValues) }
                   formProps={{
                     colon,
                     disabled,
-                    initialValues,
+                    initialValues: deepClone(initialValues),
                     labelAlign,
                     labelCol,
                     labelWrap,
