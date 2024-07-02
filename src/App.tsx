@@ -167,6 +167,7 @@ function App() {
       <ZPaper className="mb-5">
         <ZForm 
           ref={ form }
+          autoSetPlaceHolder={ true }
           initialValues={{ name: 'zht', age: 19 }}
           schemas={ schemas }
           onValueChange={ onValueChange }

@@ -9,7 +9,7 @@ import * as React from 'react'
 import { forwardRef, useImperativeHandle, useState } from 'react'
 import DisabledContext, { DisabledContextProvider } from '../config-provider/DisabledContext'
 import SizeContext from '../config-provider/SizeContext'
-import deepClone from '../_util/ deepClone'
+import deepClone from '../_util/deepClone'
 
 import ZFormItem from './components/FormItem'
 
@@ -48,6 +48,7 @@ function ZForm(props: ZFormProps, ref: Ref<unknown> | undefined) {
   const contextDisabled = React.useContext(DisabledContext)
 
   const {
+    autoSetPlaceHolder,
     colon,
     initialValues = {},
     disabled = contextDisabled,
@@ -110,6 +111,7 @@ function ZForm(props: ZFormProps, ref: Ref<unknown> | undefined) {
                   key={ schema.name }
                   initialValues={ deepClone(initialValues) }
                   formProps={{
+                    autoSetPlaceHolder,
                     colon,
                     disabled,
                     initialValues: deepClone(initialValues),
