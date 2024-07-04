@@ -1,5 +1,5 @@
 import type { ZFormRef } from '../components/form/Form'
-import type { Column, ZFormSchema } from '../components'
+import { Column, ZFormSchema, ZTreeSelect } from '../components'
 
 import { useRef } from 'react'
 
@@ -74,6 +74,20 @@ function App() {
 
   const schemas: ZFormSchema[] = [
     {
+      component: 'TreeSelect',
+      label: '上级',
+      name: 'parent',
+      componentProps: {
+        treeData: [
+          {
+            value: 'home',
+            title: '主页'
+          }
+        ]
+      },
+    },
+
+    {
       component: 'Input',
       label: '姓名',
       name: 'name',
@@ -133,6 +147,13 @@ function App() {
   return (
     <div className="p-4">
       <ZPaper className="mb-5">
+        <ZTreeSelect
+          treeData={[{
+            value: 'home',
+            title: '主页'
+          }]}
+        ></ZTreeSelect>
+
         <ZInput 
           label="Name"
         ></ZInput>

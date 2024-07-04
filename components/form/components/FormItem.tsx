@@ -46,7 +46,7 @@ function ZFormItem(props: ZFormItemProps) {
     }
 
     return componentProps as Recordable
-  };
+  }
 
   const getDisable = () => {
     const { disabled: globDisabled } = props.formProps

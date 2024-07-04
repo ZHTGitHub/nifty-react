@@ -6,6 +6,7 @@ import ZInputNumber from '../input-number'
 import { RadioButtonGroup as ZRadioButtonGroup } from '../radio'
 import ZSelect from '../select'
 import ZSwitch from '../switch'
+import ZTreeSelect from '../treeSelect'
 
 const componentMap = new Map<ComponentType, React.ElementType>()
 
@@ -15,5 +16,6 @@ componentMap.set('InputNumber', ZInputNumber)
 componentMap.set('RadioButtonGroup', ZRadioButtonGroup)
 componentMap.set('Select', ZSelect)
 componentMap.set('Switch', ZSwitch)
+componentMap.set('TreeSelect', ZTreeSelect)
 
 export { componentMap }
