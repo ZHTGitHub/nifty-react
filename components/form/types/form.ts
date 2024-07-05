@@ -17,20 +17,26 @@ export interface RenderCallbackParams {
 }
 
 export interface ZFormProps extends React.HTMLAttributes<HTMLFormElement>{
+  // 是否聚焦第一个输入框，只在第一个表单项为 input 的时候作用
+  autoFocusFirstItem?: boolean;
   // 自动设置表单内组件的 placeholder
   autoSetPlaceHolder?: boolean;
+  // 在 input 中输入时按回车自动提交
+  autoSubmitOnEnter?: boolean;
   // 向表单内所有组件传递 colon 属性
   colon?: boolean;
   // 向表单内所有组件传递 disabled 属性
   disabled?: boolean;
-  // 初始值
+  // 表单默认值，只有初始化以及重置时生效
   initialValues?: Recordable<any>;
-  // 布局
+  // 表单布局
   layout?: FormLayout;
   // label 布局
   labelAlign?: FormLabelAlign;
   // 整个表单通用 LabelCol 配置
   labelCol?: ColProps;
+  // 额外传递到子组件的参数 values
+  mergeDynamicData?: Recordable;
   // 向表单内所有组件传递 readonly 属性
   readonly?: boolean;
   // 表单配置，见下方 ZFormSchema 配置
@@ -82,12 +88,6 @@ export interface ZFormSchema {
     | object;
   // 默认值
   defaultValue?: any;
-  // 禁用
-  dynamicDisabled?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
-  // 只读
-  dynamicReadonly?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
-  // 校验规则
-  dynamicRules?: (renderCallbackParams: RenderCallbackParams) => Rule[];
   // 设置 label 的 htmlFor 属性
   htmlFor?: string;
   // 标签名
@@ -108,4 +108,10 @@ export interface ZFormSchema {
   suffix?: string | number | ((values: RenderCallbackParams) => string | number);
   // 是否显示
   visible?: boolean;
+  // 禁用
+  dynamicDisabled?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
+  // 只读
+  dynamicReadonly?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
+  // 校验规则
+  dynamicRules?: (renderCallbackParams: RenderCallbackParams) => Rule[];
 }

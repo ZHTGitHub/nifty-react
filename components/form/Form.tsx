@@ -29,6 +29,7 @@ function ZForm(props: ZFormProps, ref: Ref<unknown> | undefined) {
     disabled = contextDisabled,
     labelAlign = 'right',
     labelCol,
+    mergeDynamicData,
     schemas,
     size,
     wrapperCol,
@@ -98,6 +99,7 @@ function ZForm(props: ZFormProps, ref: Ref<unknown> | undefined) {
                     initialValues: deepClone(initialValues),
                     labelAlign,
                     labelCol,
+                    mergeDynamicData,
                     wrapperCol,
                   }}
                   schema={ schema }

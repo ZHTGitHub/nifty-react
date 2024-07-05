@@ -28,12 +28,14 @@ function ZFormItem(props: ZFormItemProps) {
 
   const getValues = () => {
     const { initialValues, schema } = props
+    const { mergeDynamicData } = props.formProps
 
     return {
       name: schema.name,
       schema,
       values: {
-        ...deepClone(initialValues)
+        ...deepClone(mergeDynamicData),
+        ...deepClone(initialValues),
       } as Recordable<any>,
     }
   }
@@ -66,22 +68,22 @@ function ZFormItem(props: ZFormItemProps) {
     return disabled
   }
 
-  const getReadonly = () => {
-    const { disabled: globDisabled } = props.formProps
-    const { dynamicDisabled } = props.schema
-    const { disabled: itemDisabled = false } = getComponentProps()
-    let disabled = !!globDisabled || itemDisabled
+  // const getReadonly = () => {
+  //   const { readonly: globReadonly } = props.formProps
+  //   const { dynamicReadonly } = props.schema
+  //   const { disabled: itemReadonly = false } = getComponentProps()
+  //   let disabled = !!globReadonly || itemReadonly
 
-    if(isBoolean(dynamicDisabled)) {
-      disabled = dynamicDisabled
-    }
+  //   if(isBoolean(dynamicReadonly)) {
+  //     disabled = dynamicReadonly
+  //   }
 
-    if(isFunction(dynamicDisabled)) {
-      disabled = dynamicDisabled(getValues())
-    }
+  //   if(isFunction(dynamicReadonly)) {
+  //     disabled = dynamicReadonly(getValues())
+  //   }
 
-    return disabled
-  }
+  //   return disabled
+  // }
 
   function renderComponent() {
     const { component } = schema;
@@ -95,11 +97,12 @@ function ZFormItem(props: ZFormItemProps) {
       size,
       ...getComponentProps(),
       disabled: getDisable(),
+      // readonly: getReadonly(),
     };
 
     const isCreatePlaceholder = !propsData.disabled && autoSetPlaceHolder
     // RangePicker place is an array
-    if (isCreatePlaceholder && component !== "RangePicker" && component) {
+    if (isCreatePlaceholder && component !== 'RangePicker' && component) {
       propsData.placeholder =
         getComponentProps()?.placeholder || createPlaceholderMessage(component)
     }
@@ -113,6 +116,7 @@ function ZFormItem(props: ZFormItemProps) {
       ...propsData,
       ...getComponentProps(),
       disabled: getDisable(),
+      // readonly: getReadonly(),
     };
 
     return <Comp 
