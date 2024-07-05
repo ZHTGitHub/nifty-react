@@ -85,7 +85,6 @@ export interface ZFormSchema {
     | ((opt: {
         schema: ZFormSchema;
         // formActionType: ZFormActionType;
-        // formModel: Recordable;
       }) => Recordable)
     | object;
   // 默认值
