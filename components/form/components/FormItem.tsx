@@ -68,23 +68,6 @@ function ZFormItem(props: ZFormItemProps) {
     return disabled
   }
 
-  // const getReadonly = () => {
-  //   const { readonly: globReadonly } = props.formProps
-  //   const { dynamicReadonly } = props.schema
-  //   const { disabled: itemReadonly = false } = getComponentProps()
-  //   let disabled = !!globReadonly || itemReadonly
-
-  //   if(isBoolean(dynamicReadonly)) {
-  //     disabled = dynamicReadonly
-  //   }
-
-  //   if(isFunction(dynamicReadonly)) {
-  //     disabled = dynamicReadonly(getValues())
-  //   }
-
-  //   return disabled
-  // }
-
   function renderComponent() {
     const { component } = schema;
 
@@ -97,7 +80,6 @@ function ZFormItem(props: ZFormItemProps) {
       size,
       ...getComponentProps(),
       disabled: getDisable(),
-      // readonly: getReadonly(),
     };
 
     const isCreatePlaceholder = !propsData.disabled && autoSetPlaceHolder
@@ -116,7 +98,6 @@ function ZFormItem(props: ZFormItemProps) {
       ...propsData,
       ...getComponentProps(),
       disabled: getDisable(),
-      // readonly: getReadonly(),
     };
 
     return <Comp 

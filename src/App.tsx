@@ -127,6 +127,7 @@ function App() {
       component: 'RadioButtonGroup',
       label: '同意',
       name: 'agree',
+      defaultValue: 'N',
       componentProps: {
         options: [
           {label: '是', value: 'Y'},
