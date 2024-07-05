@@ -45,7 +45,7 @@ export interface ZFormProps extends React.HTMLAttributes<HTMLFormElement>{
   size?: SizeType;
   // 整个表单通用 wrapperCol 配置
   wrapperCol?: ColProps;
-  // 整个表单通用 wrapperCol 配置
+  // 整个表单通用 wrapperRow 配置
   wrapperRow?: RowProps;
   // 字段值更新时触发回调事件
   onValueChange?: (key: string, value: any) => void;
@@ -76,7 +76,7 @@ export interface ZFormActionType {
 export interface ZFormSchema {
   // 盖统一设置的 colon
   colon?: boolean;
-  // 
+  // 盖统一设置的 wrapperCol
   colProps?: Partial<ColProps>;
   // 组件类型
   component: ComponentType;

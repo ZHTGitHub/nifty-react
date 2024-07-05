@@ -127,7 +127,7 @@ function ZFormItem(props: ZFormItemProps) {
   const { colProps = {} } = schema;
   const { wrapperCol = {} } = formProps;
 
-  const realColProps = { ...wrapperCol, ...colProps }
+  const realColProps = { span: 24, ...wrapperCol, ...colProps }
 
   return <Col 
     { ...realColProps }

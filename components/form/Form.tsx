@@ -34,7 +34,7 @@ function ZForm(props: ZFormProps, ref: Ref<unknown> | undefined) {
     schemas,
     size,
     wrapperCol,
-    wrapperRow,
+    wrapperRow = {},
     
     onValueChange,
     onValuesChange,
