@@ -53,8 +53,10 @@ export interface ZFormSchema {
     | object;
   // 默认值
   defaultValue?: any;
-  // 
+  // 禁用
   dynamicDisabled?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
+  // 只读
+  dynamicReadonly?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
   // 设置 label 的 htmlFor 属性
   htmlFor?: string;
   // label 标签的文本
