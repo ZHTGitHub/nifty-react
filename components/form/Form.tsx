@@ -4,6 +4,7 @@ import type { Recordable } from './types/form'
 
 import * as React from 'react'
 import { forwardRef, useImperativeHandle, useState } from 'react'
+import { Row } from 'antd'
 import DisabledContext, { DisabledContextProvider } from '../config-provider/DisabledContext'
 import SizeContext from '../config-provider/SizeContext'
 import deepClone from '../_util/deepClone'
@@ -33,6 +34,7 @@ function ZForm(props: ZFormProps, ref: Ref<unknown> | undefined) {
     schemas,
     size,
     wrapperCol,
+    wrapperRow,
     
     onValueChange,
     onValuesChange,
@@ -87,25 +89,27 @@ function ZForm(props: ZFormProps, ref: Ref<unknown> | undefined) {
       }}>
         <DisabledContextProvider disabled={ disabled }>
           <SizeContext.Provider value={ size }>
-            { 
-              schemas?.map((schema: ZFormSchema) => (
-                <ZFormItem
-                  key={ schema.name }
-                  initialValues={ deepClone(initialValues) }
-                  formProps={{
-                    autoSetPlaceHolder,
-                    colon,
-                    disabled,
-                    initialValues: deepClone(initialValues),
-                    labelAlign,
-                    labelCol,
-                    mergeDynamicData,
-                    wrapperCol,
-                  }}
-                  schema={ schema }
-                ></ZFormItem>
-              )) 
-            }
+            <Row { ...wrapperRow }>
+              { 
+                schemas?.map((schema: ZFormSchema) => (
+                  <ZFormItem
+                    key={ schema.name }
+                    initialValues={ deepClone(initialValues) }
+                    formProps={{
+                      autoSetPlaceHolder,
+                      colon,
+                      disabled,
+                      initialValues: deepClone(initialValues),
+                      labelAlign,
+                      labelCol,
+                      mergeDynamicData,
+                      wrapperCol,
+                    }}
+                    schema={ schema }
+                  ></ZFormItem>
+                )) 
+              }
+            </Row>
           </SizeContext.Provider>
         </DisabledContextProvider>
       </FormContext.Provider>

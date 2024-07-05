@@ -1,4 +1,4 @@
-import type { ColProps } from 'antd'
+import type { ColProps, RowProps } from 'antd'
 import type { SizeType } from '../../config-provider/SizeContext'
 import type { FormLabelAlign } from '../interface'
 import type { Rule } from '../FormItem'
@@ -45,6 +45,8 @@ export interface ZFormProps extends React.HTMLAttributes<HTMLFormElement>{
   size?: SizeType;
   // 整个表单通用 wrapperCol 配置
   wrapperCol?: ColProps;
+  // 整个表单通用 wrapperCol 配置
+  wrapperRow?: RowProps;
   // 字段值更新时触发回调事件
   onValueChange?: (key: string, value: any) => void;
   // 字段值更新时触发回调事件
