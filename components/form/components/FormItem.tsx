@@ -1,11 +1,12 @@
 import type { ZFormSchema } from '../types/form'
-import type { ZFormProps } from '../Form'
+import type { ZFormProps } from '../types/form'
 import type { Recordable } from '../types/form'
 
 import * as React from 'react'
 import { Col } from 'antd'
 import { createPlaceholderMessage } from '../helper'
 
+import deepClone from '../../_util/deepClone'
 import { isBoolean, isFunction } from '../../_util/is'
 import { componentMap } from '../componentMap'
 
@@ -25,17 +26,17 @@ function ZFormItem(props: ZFormItemProps) {
   props = Object.assign(defaultProps, props)
   const { formProps, schema } = props
 
-  // const getValues = () => {
-  //   const { initialValues, schema } = props
+  const getValues = () => {
+    const { initialValues, schema } = props
 
-  //   return {
-  //     name: schema.name,
-  //     values: {
-  //       ...initialValues,
-  //     },
-  //     schema,
-  //   }
-  // }
+    return {
+      name: schema.name,
+      schema,
+      values: {
+        ...deepClone(initialValues)
+      } as Recordable<any>,
+    }
+  }
 
   const getComponentProps = () => {
     const { schema } = props
@@ -58,9 +59,26 @@ function ZFormItem(props: ZFormItemProps) {
       disabled = dynamicDisabled
     }
 
-    // if(isFunction(dynamicDisabled)) {
-    //   disabled = dynamicDisabled(getValues())
-    // }
+    if(isFunction(dynamicDisabled)) {
+      disabled = dynamicDisabled(getValues())
+    }
+
+    return disabled
+  }
+
+  const getReadonly = () => {
+    const { disabled: globDisabled } = props.formProps
+    const { dynamicDisabled } = props.schema
+    const { disabled: itemDisabled = false } = getComponentProps()
+    let disabled = !!globDisabled || itemDisabled
+
+    if(isBoolean(dynamicDisabled)) {
+      disabled = dynamicDisabled
+    }
+
+    if(isFunction(dynamicDisabled)) {
+      disabled = dynamicDisabled(getValues())
+    }
 
     return disabled
   }

@@ -1,8 +1,5 @@
 import type { Ref } from 'react'
-import type { ColProps } from 'antd'
-import type { SizeType } from '../config-provider/SizeContext'
-import type { ZFormSchema } from './types/form'
-import type { FormLabelAlign } from './interface'
+import type { ZFormProps, ZFormSchema } from './types/form'
 import type { Recordable } from './types/form'
 
 import * as React from 'react'
@@ -14,28 +11,6 @@ import deepClone from '../_util/deepClone'
 import ZFormItem from './components/FormItem'
 
 import { FormContext } from './FormContext'
-
-export type FormLayout = 'horizontal' | 'inline' | 'vertical'
-
-export interface ZFormProps extends React.HTMLAttributes<HTMLFormElement>{
-  autoSetPlaceHolder?: boolean;
-  colon?: boolean;
-  disabled?: boolean;
-  initialValues?: Recordable<any>;
-  layout?: FormLayout;
-  labelAlign?: FormLabelAlign;
-  labelCol?: ColProps;
-  labelWrap?: boolean;
-  schemas?: ZFormSchema[];
-  size?: SizeType;
-  vertical?: boolean;
-  wrapperCol?: ColProps;
-
-  onValueChange?: (key: string, value: any) => void;
-  onValuesChange?: (changedValues: Recordable, allValues: Recordable) => void;
-  setValues?: (values: Recordable) => void;
-  values?: Recordable;
-}
 
 export interface ZFormRef {
   getFieldsValue: () => Recordable;
@@ -52,10 +27,8 @@ function ZForm(props: ZFormProps, ref: Ref<unknown> | undefined) {
     colon,
     initialValues = {},
     disabled = contextDisabled,
-    // layout = 'horizontal',
     labelAlign = 'right',
     labelCol,
-    labelWrap,
     schemas,
     size,
     wrapperCol,
@@ -125,7 +98,6 @@ function ZForm(props: ZFormProps, ref: Ref<unknown> | undefined) {
                     initialValues: deepClone(initialValues),
                     labelAlign,
                     labelCol,
-                    labelWrap,
                     wrapperCol,
                   }}
                   schema={ schema }
