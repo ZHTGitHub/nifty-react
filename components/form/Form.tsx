@@ -1,4 +1,5 @@
 import type { Ref } from 'react'
+import type { RowProps } from 'antd'
 import type { ZFormProps, ZFormSchema } from './types/form'
 import type { Recordable } from './types/form'
 
@@ -79,6 +80,8 @@ function ZForm(props: ZFormProps, ref: Ref<unknown> | undefined) {
     }
   })
 
+  const realRowProps: RowProps = { gutter: [0, 12], ...wrapperRow }
+
   return (
     <div>
       <FormContext.Provider value={{
@@ -89,7 +92,7 @@ function ZForm(props: ZFormProps, ref: Ref<unknown> | undefined) {
       }}>
         <DisabledContextProvider disabled={ disabled }>
           <SizeContext.Provider value={ size }>
-            <Row { ...wrapperRow }>
+            <Row { ...realRowProps }>
               { 
                 schemas?.map((schema: ZFormSchema) => (
                   <ZFormItem

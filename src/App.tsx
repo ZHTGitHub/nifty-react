@@ -192,7 +192,7 @@ function App() {
           autoSetPlaceHolder={ true }
           initialValues={{ name: 'zht', age: 19 }}
           schemas={ schemas }
-          wrapperRow={{ gutter: [0, 16] }}
+          // wrapperRow={{ gutter: [0, 12] }}
           onValueChange={ onValueChange }
           onValuesChange={ onValuesChange }
         ></ZForm>

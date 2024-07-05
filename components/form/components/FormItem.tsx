@@ -1,3 +1,4 @@
+import type { ColProps } from 'antd'
 import type { ZFormSchema } from '../types/form'
 import type { ZFormProps } from '../types/form'
 import type { Recordable } from '../types/form'
@@ -105,10 +106,10 @@ function ZFormItem(props: ZFormItemProps) {
     ></Comp>
   }
 
-  const { colProps = {} } = schema;
-  const { wrapperCol = {} } = formProps;
+  const { colProps = {} } = schema
+  const { wrapperCol = {} } = formProps
 
-  const realColProps = { span: 24, ...wrapperCol, ...colProps }
+  const realColProps: ColProps = { span: 24, ...wrapperCol, ...colProps }
 
   return <Col 
     { ...realColProps }
